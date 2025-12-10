@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тортики & Тістечка</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Шапка сайту -->
+    <header>
+        <h1>Тортики <span class="ampersand">&</span> Тістечка</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Приховані radio inputs для CSS-фільтрації без JavaScript -->
+            <!-- Працюють через селектори :checked в CSS -->
+            <input type="radio" name="filter" id="filter-all" class="filter-input" checked>
+            <input type="radio" name="filter" id="filter-pirig" class="filter-input">
+            <input type="radio" name="filter" id="filter-rulet" class="filter-input">
+            <input type="radio" name="filter" id="filter-sirniki" class="filter-input">
+            <input type="radio" name="filter" id="filter-tistechko" class="filter-input">
+            <input type="radio" name="filter" id="filter-tort" class="filter-input">
+
+            <!-- Бічна панель (відображається тільки на десктопі >1200px) -->
+            <aside class="sidebar">
+                <!-- Фільтр калорій (візуальний елемент) -->
+                <div class="calorie-filter">
+                    <h3>Калорії у порції</h3>
+                    <input type="range" min="0" max="600" value="400" class="calorie-slider">
+                    <p>Від 0 до 600 кКал</p>
+                </div>
+                <!-- Кнопки фільтрації для десктопу -->
+                <div class="category-filters">
+                    <label for="filter-pirig" class="filter-button">Пиріг</label>
+                    <label for="filter-rulet" class="filter-button">Рулет</label>
+                    <label for="filter-sirniki" class="filter-button">Сирники</label>
+                    <label for="filter-tistechko" class="filter-button">Тістечко</label>
+                    <label for="filter-tort" class="filter-button">Торт</label>
+                    <label for="filter-all" class="filter-button reset">Скинути фільтр</label>
+                </div>
+            </aside>
+
+            <!-- Основний контент -->
+            <div class="content">
+                <!-- Фільтри для мобільних і планшетів (приховуються на десктопі) -->
+                <div class="filters-mobile">
+                    <label for="filter-pirig" class="filter-button">Пиріг</label>
+                    <label for="filter-tistechko" class="filter-button">Тістечко</label>
+                    <label for="filter-rulet" class="filter-button">Рулет</label>
+                    <label for="filter-tort" class="filter-button">Торт</label>
+                    <label for="filter-sirniki" class="filter-button">Сирник</label>
+                    <label for="filter-all" class="filter-button reset">Скинути фільтр</label>
+                </div>
+
+                <!-- Галерея виробів -->
+                <!-- Кожна картка має клас категорії (tort, tistechko, pirig, rulet, sirniki) -->
+                <!-- для фільтрації через CSS -->
+                <div class="gallery">
+                    <!-- Картка торту -->
+                    <div class="card tort">
+                        <img src="img/1tort.png" alt="Сметанковий торт">
+                        <div class="card-content">
+                            <h3>Торт: <span>Сметанковий</span></h3>
+                            <p class="calories">Калорії у порції 265 кКал</p>
+                        </div>
+                    </div>
+
+                    <!-- Картка тістечка -->
+                    <div class="card tistechko">
+                        <img src="img/2tort.png" alt="Мафін">
+                        <div class="card-content">
+                            <h3>Тістечко: <span>Мафін</span></h3>
+                            <p class="calories">Калорії у порції 305 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card sirniki">
+                        <img src="img/3tort.png" alt="Три ягоди">
+                        <div class="card-content">
+                            <h3>Сирники: <span>Три ягоди</span></h3>
+                            <p class="calories">Калорії у порції 450 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card tort">
+                        <img src="img/4tort.png" alt="Смачний">
+                        <div class="card-content">
+                            <h3>Торт: <span>Смачний</span></h3>
+                            <p class="calories">Калорії у порції 523 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card rulet">
+                        <img src="img/5tort.png" alt="Святковий">
+                        <div class="card-content">
+                            <h3>Рулет: <span>Святковий</span></h3>
+                            <p class="calories">Калорії у порції 380 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card pirig">
+                        <img src="img/6tort.png" alt="Свято у бабусі">
+                        <div class="card-content">
+                            <h3>Пиріг: <span>Свято у бабусі</span></h3>
+                            <p class="calories">Калорії у порції 298 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card tort">
+                        <img src="img/7tort.png" alt="Ведмедик">
+                        <div class="card-content">
+                            <h3>Торт: <span>Ведмедик</span></h3>
+                            <p class="calories">Калорії у порції 600 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card tistechko">
+                        <img src="img/8tort.png" alt="Живі квіти">
+                        <div class="card-content">
+                            <h3>Тістечко: <span>Живі квіти</span></h3>
+                            <p class="calories">Калорії у порції 438 кКал</p>
+                        </div>
+                    </div>
+
+                    <div class="card tistechko">
+                        <img src="img/3tort.png" alt="Лимонне з маком">
+                        <div class="card-content">
+                            <h3>Тістечко: <span>Лимонне з маком</span></h3>
+                            <p class="calories">Калорії у порції 348 кКал</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер сайту -->
+    <!-- На мобільних: вертикально по центру -->
+    <!-- На планшетах і десктопі: горизонтально по краях -->
+    <footer>
+        <p>Контакти: <a href="mailto:tortik@smakota.ua">tortik@smakota.ua</a></p>
+        <p>&copy; 2019 Smakota</p>
+    </footer>
+</body>
+</html>

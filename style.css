@@ -1,0 +1,476 @@
+/* ============================================
+                    БАЗОВІ СТИЛІ
+   ============================================ */
+
+/* Скидання стандартних відступів та box-sizing для всіх елементів */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Загальні стилі для body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ============================================
+                HEADER (ШАПКА САЙТУ)
+   ============================================ */
+
+header {
+    background-color: #e8e8e8;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+/* Червоний знак & в заголовку */
+.ampersand {
+    color: #d64545;
+    font-weight: 600;
+}
+
+/* ============================================
+            ФІЛЬТРАЦІЯ (CSS без JavaScript)
+   ============================================ */
+
+/* Приховуємо radio inputs, які використовуються для фільтрації */
+.filter-input {
+    display: none;
+}
+
+/* ============================================
+                КОНТЕЙНЕР ТА МАКЕТ
+   ============================================ */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Бічна панель (за замовчуванням прихована, показується тільки на десктопі) */
+.sidebar {
+    display: none;
+}
+
+.content {
+    width: 100%;
+}
+
+/* ============================================
+        ФІЛЬТРИ ДЛЯ МОБІЛЬНИХ ТА ПЛАНШЕТІВ
+   ============================================ */
+
+/* Grid з 2 колонками для мобільних */
+.filters-mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+/* Стилі для кнопок фільтрації */
+.filter-button {
+    padding: 12px 20px;
+    background-color: #d8d8d8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+    background-color: #c0c0c0;
+}
+
+/* Скидання стилів для всіх кнопок */
+.filter-input:checked + .sidebar .filter-button,
+.filter-input:checked ~ .content .filters-mobile .filter-button {
+    background-color: #d8d8d8;
+}
+
+/* Виділення активного фільтра (темний фон, білий текст) */
+/* Використовується селектор :checked для відстеження стану radio input */
+#filter-pirig:checked + .sidebar label[for="filter-pirig"],
+#filter-pirig:checked ~ .content .filters-mobile label[for="filter-pirig"],
+#filter-rulet:checked + .sidebar label[for="filter-rulet"],
+#filter-rulet:checked ~ .content .filters-mobile label[for="filter-rulet"],
+#filter-sirniki:checked + .sidebar label[for="filter-sirniki"],
+#filter-sirniki:checked ~ .content .filters-mobile label[for="filter-sirniki"],
+#filter-tistechko:checked + .sidebar label[for="filter-tistechko"],
+#filter-tistechko:checked ~ .content .filters-mobile label[for="filter-tistechko"],
+#filter-tort:checked + .sidebar label[for="filter-tort"],
+#filter-tort:checked ~ .content .filters-mobile label[for="filter-tort"] {
+    background-color: #7a7a7a;
+    color: white;
+}
+
+/* ============================================
+                ГАЛЕРЕЯ ВИРОБІВ
+   ============================================ */
+
+/* Grid галерея (1 колонка на мобільних) */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Стилі карток */
+.card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s, filter 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+/* Ефект при наведенні - картка піднімається та збільшується тінь */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Зображення в картці */
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: top; /* Вирівнювання по верхньому краю */
+}
+
+/* Контент картки */
+.card-content {
+    padding: 15px 20px;
+}
+
+.card-content h3 {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.card-content h3 span {
+    font-weight: 600;
+    color: #333;
+}
+
+.card-content .calories {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* ============================================
+                ЛОГІКА ФІЛЬТРАЦІЇ
+   ============================================ */
+
+/* Застосування grayscale фільтра до неактивних карток */
+/* Коли вибрано фільтр, всі картки без відповідного класу стають сірими */
+#filter-tort:checked ~ .content .gallery .card:not(.tort),
+#filter-tort:checked ~ .sidebar ~ .content .gallery .card:not(.tort) {
+    filter: grayscale(1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#filter-tistechko:checked ~ .content .gallery .card:not(.tistechko),
+#filter-tistechko:checked ~ .sidebar ~ .content .gallery .card:not(.tistechko) {
+    filter: grayscale(1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#filter-pirig:checked ~ .content .gallery .card:not(.pirig),
+#filter-pirig:checked ~ .sidebar ~ .content .gallery .card:not(.pirig) {
+    filter: grayscale(1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#filter-rulet:checked ~ .content .gallery .card:not(.rulet),
+#filter-rulet:checked ~ .sidebar ~ .content .gallery .card:not(.rulet) {
+    filter: grayscale(1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#filter-sirniki:checked ~ .content .gallery .card:not(.sirniki),
+#filter-sirniki:checked ~ .sidebar ~ .content .gallery .card:not(.sirniki) {
+    filter: grayscale(1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ============================================
+                FOOTER (ПІДВАЛ)
+   ============================================ */
+
+footer {
+    background-color: #e8e8e8;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* ============================================
+            MEDIA QUERIES - ПЛАНШЕТИ
+            730px - 1199px
+   ============================================ */
+
+@media (min-width: 730px) and (max-width: 1199px) {
+    /* Збільшуємо заголовок */
+    h1 {
+        font-size: 2.8rem;
+    }
+
+    /* Фільтри в 3 колонки */
+    .filters-mobile {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+
+    /* Галерея в 3 колонки */
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    /* Менша висота зображень */
+    .card img {
+        height: 200px;
+    }
+
+    /* Футер горизонтально */
+    footer {
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* ============================================
+            MEDIA QUERIES - ДЕСКТОП
+            >1200px
+   ============================================ */
+
+@media (min-width: 1200px) {
+    /* Grid макет з сайдбаром справа */
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 40px;
+        grid-template-areas:
+            "filters filters filters filters filters sidebar"
+            "content content content content content sidebar";
+    }
+
+    /* Приховані радіо-інпути займають область filters */
+    #filter-pirig,
+    #filter-rulet,
+    #filter-sirniki,
+    #filter-tistechko,
+    #filter-tort,
+    #filter-all {
+        grid-area: filters;
+    }
+
+    /* Показуємо бічну панель */
+    .sidebar {
+        display: block;
+        grid-area: sidebar;
+        background-color: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        height: fit-content;
+        position: sticky; /* Закріплюємо при прокрутці */
+        top: 20px;
+    }
+
+    /* Секція фільтра калорій */
+    .calorie-filter {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .calorie-filter h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .calorie-slider {
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    .calorie-filter p {
+        font-size: 0.9rem;
+        color: #666;
+        text-align: center;
+    }
+
+    /* Кнопки категорій у сайдбарі */
+    .category-filters {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sidebar .filter-button {
+        width: 100%;
+        padding: 14px 20px;
+        background-color: #e8e8e8;
+        border-radius: 8px;
+        font-size: 0.95rem;
+    }
+
+    .sidebar .filter-button:hover {
+        background-color: #d0d0d0;
+    }
+
+    .content {
+        grid-area: content;
+    }
+
+    /* Приховуємо мобільні фільтри */
+    .filters-mobile {
+        display: none;
+    }
+
+    /* Галерея в 3 колонки */
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    /* Горизонтальна орієнтація карток (фото зліва, текст справа) */
+    .card {
+        flex-direction: row;
+        align-items: stretch;
+        position: relative;
+    }
+
+    /* Фіксована ширина зображення зліва */
+    .card img {
+        width: 150px;
+        height: auto;
+        min-height: 150px;
+        object-fit: cover;
+        object-position: top;
+        flex-shrink: 0;
+    }
+
+    /* Контент займає решту простору */
+    .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        padding-top: 25px;
+    }
+
+    /* Розділова лінія зверху контенту (на одному рівні для всіх карток) */
+    .card-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background-color: #e0e0e0;
+    }
+
+    .card-content h3 {
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+    }
+
+    .card-content .calories {
+        font-size: 0.85rem;
+    }
+
+    /* Футер горизонтально по краях */
+    footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 40px;
+    }
+
+    footer p:first-child {
+        text-align: left;
+    }
+
+    footer p:last-child {
+        text-align: right;
+    }
+}
+
+/* ============================================
+            MEDIA QUERIES - МОБІЛЬНІ
+            <730px
+   ============================================ */
+
+@media (max-width: 729px) {
+    /* Менший заголовок */
+    h1 {
+        font-size: 2rem;
+    }
+
+    /* Фільтри в 2 колонки */
+    .filters-mobile {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Галерея в 1 колонку */
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    /* Футер вертикально по центру */
+    footer {
+        text-align: center;
+    }
+
+    footer p {
+        margin: 8px 0;
+    }
+}
